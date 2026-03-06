@@ -1,33 +1,35 @@
 backend:
-  name: git-gateway
-  branch: master  # or main if your repo uses main
+  name: github
+  repo: MindsMend-org/my-game-projects-site  # Your exact repo (org/repo)
+  branch: master                             # Change to 'main' if your default branch is main
+  squash_merges: true                        # Optional: keeps history cleaner
 
-media_folder: "static/img/uploads"   # Better for Docusaurus: images go to static/ so they're served at /img/uploads/
-public_folder: "/img/uploads"        # Optional: how paths appear in editor
+media_folder: "static/img/uploads"           # Images saved here → served at /img/uploads/
+public_folder: "/img/uploads"                # How paths show in CMS editor
 
 collections:
   - name: "projects"
     label: "Projects"
     label_singular: "Project"
-    folder: "docs/projects"          # All project MD files here; create the folder in repo if missing
+    folder: "docs/projects"                  # Create this folder in repo if missing
     create: true
-    delete: true                     # Optional: allow deleting projects
-    slug: "{{title | slugify}}"      # Auto-creates nice filenames like retro-space-game.md
-    identifier_field: "title"        # Shows title in CMS entry list
+    delete: true
+    slug: "{{title | slugify}}"
+    identifier_field: "title"
     extension: "md"
     format: "frontmatter"
     editor:
-      preview: false                 # Usually false for custom Docusaurus themes
+      preview: false
     fields:
       - { label: "Title", name: "title", widget: "string", required: true }
-      - { label: "Slug (optional)", name: "slug", widget: "string", required: false }  # For custom URL if needed
-      - { label: "Description", name: "description", widget: "text", required: false } # Short summary
+      - { label: "Slug (optional)", name: "slug", widget: "string", required: false }
+      - { label: "Description", name: "description", widget: "text", required: false }
       - { label: "Main Image", name: "image", widget: "image", allow_multiple: false, required: false }
-      - { label: "Body / Overview", name: "body", widget: "markdown" }  # Rich text below frontmatter
+      - { label: "Body / Overview", name: "body", widget: "markdown" }
       - label: "Levels"
         name: "levels"
         widget: "list"
-        summary: "{{fields.name}} ({{fields.enemies.length || 0}} enemies)"  # Nice preview in CMS
+        summary: "{{fields.name}} ({{fields.enemies.length || 0}} enemies)"
         collapsed: false
         fields:
           - { label: "Level Name", name: "name", widget: "string", required: true }
@@ -37,7 +39,7 @@ collections:
             name: "enemies"
             widget: "list"
             summary: "{{fields.name}} – {{fields.type}} / {{fields.subtype}}"
-            collapsed: true  # Collapse by default to reduce clutter
+            collapsed: true
             fields:
               - { label: "Type", name: "type", widget: "select", options: ["biologics", "non-biologics"], default: "biologics" }
               - { label: "Subtype", name: "subtype", widget: "select", options: ["ground", "air", "hidden"], default: "ground" }
@@ -47,7 +49,7 @@ collections:
               - { label: "Details / Notes", name: "details", widget: "markdown" }
               - { label: "Image", name: "image", widget: "image", required: false }
 
-  - name: "blog"  # Keep from starter
+  - name: "blog"
     label: "Blog"
     folder: "blog"
     create: true
@@ -72,7 +74,7 @@ collections:
       - { label: "Image", name: "image", widget: "image", allow_multiple: false, required: false }
       - { label: "Body", name: "body", widget: "markdown" }
 
-  - name: "pages"  # Keep if you need static pages
+  - name: "pages"
     label: "Pages"
     label_singular: "Page"
     folder: "src/pages"
@@ -80,7 +82,7 @@ collections:
     create: true
     slug: "{{slug}}"
     identifier_field: "title"
-    extension: "js"  # Or .md if using MDX
+    extension: "js"  # Change to "mdx" or "md" if using MDX/Markdown pages
     format: "frontmatter"
     editor:
       preview: false
