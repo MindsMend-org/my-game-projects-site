@@ -9,7 +9,7 @@ hide_table_of_contents: true
 tags:
   - hello
   - docusaurus
-draft: true
+draft: false
 date: 2026-03-06
 ---
 
