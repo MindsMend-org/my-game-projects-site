@@ -1,70 +1,91 @@
 backend:
   name: git-gateway
-  branch: master # Branch to update (optional; defaults to master)
-media_folder: 'assets/uploads'
+  branch: master  # or main if your repo uses main
+
+media_folder: "static/img/uploads"   # Better for Docusaurus: images go to static/ so they're served at /img/uploads/
+public_folder: "/img/uploads"        # Optional: how paths appear in editor
+
 collections:
-  - name: 'docs'
-    label: 'Docs'
-    label_singular: 'Doc'
-    folder: 'docs'
-    path: '{{menu}}/{{id}}'
+  - name: "projects"
+    label: "Projects"
+    label_singular: "Project"
+    folder: "docs/projects"          # All project MD files here; create the folder in repo if missing
     create: true
-    slug: '{{id}}'
-    identifier_field: 'title'
-    extension: 'md'
-    format: 'frontmatter'
+    delete: true                     # Optional: allow deleting projects
+    slug: "{{title | slugify}}"      # Auto-creates nice filenames like retro-space-game.md
+    identifier_field: "title"        # Shows title in CMS entry list
+    extension: "md"
+    format: "frontmatter"
+    editor:
+      preview: false                 # Usually false for custom Docusaurus themes
+    fields:
+      - { label: "Title", name: "title", widget: "string", required: true }
+      - { label: "Slug (optional)", name: "slug", widget: "string", required: false }  # For custom URL if needed
+      - { label: "Description", name: "description", widget: "text", required: false } # Short summary
+      - { label: "Main Image", name: "image", widget: "image", allow_multiple: false, required: false }
+      - { label: "Body / Overview", name: "body", widget: "markdown" }  # Rich text below frontmatter
+      - label: "Levels"
+        name: "levels"
+        widget: "list"
+        summary: "{{fields.name}} ({{fields.enemies.length || 0}} enemies)"  # Nice preview in CMS
+        collapsed: false
+        fields:
+          - { label: "Level Name", name: "name", widget: "string", required: true }
+          - { label: "Background Image", name: "bgImage", widget: "image", required: false }
+          - { label: "Foreground Image", name: "fgImage", widget: "image", required: false }
+          - label: "Enemies"
+            name: "enemies"
+            widget: "list"
+            summary: "{{fields.name}} – {{fields.type}} / {{fields.subtype}}"
+            collapsed: true  # Collapse by default to reduce clutter
+            fields:
+              - { label: "Type", name: "type", widget: "select", options: ["biologics", "non-biologics"], default: "biologics" }
+              - { label: "Subtype", name: "subtype", widget: "select", options: ["ground", "air", "hidden"], default: "ground" }
+              - { label: "Name", name: "name", widget: "string", required: true }
+              - { label: "Health", name: "health", widget: "number", value_type: "int", min: 0, default: 100 }
+              - { label: "Damage", name: "damage", widget: "number", value_type: "int", min: 0, default: 10 }
+              - { label: "Details / Notes", name: "details", widget: "markdown" }
+              - { label: "Image", name: "image", widget: "image", required: false }
+
+  - name: "blog"  # Keep from starter
+    label: "Blog"
+    folder: "blog"
+    create: true
+    slug: "{{date}}-{{slug}}"
+    identifier_field: "title"
+    extension: "md"
+    format: "frontmatter"
     editor:
       preview: false
     fields:
-      # - name: 'menu'
-      #   label: 'Menu'
-      - { label: 'Slug', name: 'id', widget: 'string' }
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Hide Title', name: 'hide_title', widget: 'boolean', default: false }
-      - { label: 'Hide Table of Contents', name: 'hide_table_of_contents', widget: 'boolean', default: false }
-      - { label: 'Sidebar Label', name: 'sidebar_label', widget: 'string', required: false }
-      - { label: 'Keywords', name: 'keywords', widget: 'list', default: [], required: false }
-      - { label: 'Description', name: 'description', required: false }
-      - { label: 'Image', name: 'image', widget: 'image', allow_multiple: false, required: false }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
-  - name: 'blog'
-    label: 'Blog'
-    folder: 'blog'
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Author", name: "author", required: false }
+      - { label: "Author Title", name: "author_title", widget: "string", required: false }
+      - { label: "Author URL", name: "author_url", widget: "string", required: false }
+      - { label: "Author Image", name: "author_image_url", widget: "image", allow_multiple: false, required: false }
+      - { label: "Hide Table of Contents", name: "hide_table_of_contents", widget: "boolean", default: false }
+      - { label: "Tags", name: "tags", widget: "list", default: [], required: false }
+      - { label: "Draft", name: "draft", widget: "boolean", default: true }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", timeFormat: false }
+      - { label: "Description", name: "description", required: false }
+      - { label: "Image", name: "image", widget: "image", allow_multiple: false, required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
+
+  - name: "pages"  # Keep if you need static pages
+    label: "Pages"
+    label_singular: "Page"
+    folder: "src/pages"
+    path: "{{slug}}"
     create: true
-    slug: '{{date}}-{{id}}'
-    identifier_field: 'title'
-    extension: 'md'
-    format: 'frontmatter'
+    slug: "{{slug}}"
+    identifier_field: "title"
+    extension: "js"  # Or .md if using MDX
+    format: "frontmatter"
     editor:
       preview: false
     fields:
-      - { label: 'Slug', name: 'id', widget: 'string' }
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Author', name: 'author', required: false }
-      - { label: 'Author Title', name: 'author_title', widget: 'string', required: false }
-      - { label: 'Author URL', name: 'author_url', widget: 'string', required: false }
-      - { label: 'Author Image', name: 'author_image_url', widget: 'image', allow_multiple: false, required: false }
-      - { label: 'Hide Table of Contents', name: 'hide_table_of_contents', widget: 'boolean', default: false }
-      - { label: 'Tags', name: 'tags', widget: 'list', default: [], required: false }
-      - { label: 'Draft', name: 'draft', widget: 'boolean', default: true }
-      - { label: 'Date', name: 'date', widget: 'datetime', format: 'YYYY-MM-DD', timeFormat: false }
-      - { label: 'Description', name: 'description', required: false }
-      - { label: 'Image', name: 'image', widget: 'image', allow_multiple: false, required: false }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
-  - name: 'pages'
-    label: 'Pages'
-    label_singular: 'Page'
-    folder: 'src/pages'
-    path: '{{id}}'
-    create: true
-    slug: '{{id}}'
-    identifier_field: 'title'
-    extension: 'js'
-    format: 'frontmatter'
-    editor:
-      preview: false
-    fields:
-      - { label: 'Slug', name: 'id', widget: 'string' }
-      - { label: 'Title', name: 'title', widget: 'string' }
-      - { label: 'Description', name: 'description', required: false }
-      - { label: 'Body', name: 'body', widget: 'markdown' }
+      - { label: "Slug", name: "slug", widget: "string" }
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Description", name: "description", required: false }
+      - { label: "Body", name: "body", widget: "markdown" }
