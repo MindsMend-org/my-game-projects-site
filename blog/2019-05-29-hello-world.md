@@ -1,11 +1,16 @@
 ---
 slug: hello-world
 title: Hello
-author: Endilie Yacop Sucipto
-author_title: Maintainer of Docusaurus
-author_url: https://github.com/endiliey
-author_image_url: https://avatars1.githubusercontent.com/u/17883920?s=460&v=4
-tags: [hello, docusaurus]
+author: Brett Palmer AKA Mince
+author_title: Maintainer of FoldingCircles
+author_url: https://www.foldingcircles.co.uk
+author_image_url: /img/uploads/sun.bmp
+hide_table_of_contents: true
+tags:
+  - hello
+  - docusaurus
+draft: true
+date: 2026-03-06
 ---
 
 Welcome to this blog. This blog is created with [**Docusaurus 2 alpha**](https://v2.docusaurus.io/).
