@@ -1,9 +1,8 @@
 ---
-
 title: Projects Overview
-
 description: All documented game projects – read-only view
-
+sidebar_label: 0. Overview
+slug: /projects
 ---
 
 
