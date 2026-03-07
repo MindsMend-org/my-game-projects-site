@@ -2,7 +2,7 @@ module.exports = {
   title: 'Folding Circles 2026',
   tagline: 'Documenting game projects, mechanics, levels, and progress',
   url: 'https://MindsMend-org.github.io',          // For GitHub Pages
-  baseUrl: '/my-game-projects-site/',               // Required for GitHub Pages
+  baseUrl: '/',               // Required for GitHub Pages
 
   onBrokenLinks: 'warn',                            // Better for development
   //onBrokenMarkdownLinks: 'warn',

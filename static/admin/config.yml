@@ -1,17 +1,17 @@
 backend:
   name: github
-  repo: MindsMend-org/my-game-projects-site  # Your exact repo (org/repo)
-  branch: master                             # Change to 'main' if your default branch is main
-  squash_merges: true                        # Optional: keeps history cleaner
+  repo: MindsMend-org/my-game-projects-site
+  branch: master                             # Change to 'main' if your repo default branch is 'main'
+  squash_merges: true                        # Cleaner commit history
 
-media_folder: "static/img/uploads"           # Images saved here → served at /img/uploads/
-public_folder: "/img/uploads"                # How paths show in CMS editor
+media_folder: "static/img/uploads"           # Images go here
+public_folder: "/img/uploads"                # How paths appear in CMS
 
 collections:
   - name: "projects"
     label: "Projects"
     label_singular: "Project"
-    folder: "docs/projects"                  # Create this folder in repo if missing
+    folder: "docs/projects"
     create: true
     delete: true
     slug: "{{title | slugify}}"
@@ -78,16 +78,15 @@ collections:
     label: "Pages"
     label_singular: "Page"
     folder: "src/pages"
-    path: "{{slug}}"
     create: true
     slug: "{{slug}}"
     identifier_field: "title"
-    extension: "js"  # Change to "mdx" or "md" if using MDX/Markdown pages
+    extension: "mdx"           # ← Changed to mdx (supports frontmatter + JSX/Markdown)
     format: "frontmatter"
     editor:
       preview: false
     fields:
       - { label: "Slug", name: "slug", widget: "string" }
       - { label: "Title", name: "title", widget: "string" }
-      - { label: "Description", name: "description", required: false }
+      - { label: "Description", name: "description", widget: "string", required: false }
       - { label: "Body", name: "body", widget: "markdown" }
