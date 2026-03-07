@@ -1,29 +1,45 @@
 module.exports = {
-  title: 'My Site',
-  tagline: 'The tagline of my site',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
-  onBrokenLinks: 'throw',
+  title: 'Folding Circles 2026',
+  tagline: 'Documenting game projects, mechanics, levels, and progress',
+  url: 'https://MindsMend-org.github.io',          // For GitHub Pages
+  baseUrl: '/my-game-projects-site/',               // Required for GitHub Pages
+
+  onBrokenLinks: 'warn',                            // Better for development
+  //onBrokenMarkdownLinks: 'warn',
+
   favicon: 'img/favicon.ico',
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+
+  organizationName: 'MindsMend-org',
+  projectName: 'my-game-projects-site',
+
   themeConfig: {
     navbar: {
-      title: 'My Site',
+      title: 'Folding Circles 2026',
       logo: {
-        alt: 'My Site Logo',
+        alt: 'Folding Circles Logo',
         src: 'img/logo.svg',
       },
       items: [
         {
-          to: 'docs/',
-          activeBasePath: 'docs',
+          to: '/docs',
+          activeBaseRegex: '^/docs/',
           label: 'Docs',
           position: 'left',
         },
-        {to: 'blog', label: 'Blog', position: 'left'},
         {
-          href: 'https://github.com/facebook/docusaurus',
+          to: '/blog',
+          label: 'Blog',
+          position: 'left',
+        },
+        {
+          to: '/admin',
+          label: 'Edit Content',
+          position: 'right',
+          target: '_blank',                    // opens in new tab (avoids routing glitch)
+          rel: 'noopener noreferrer',
+        },
+        {
+          href: 'https://github.com/MindsMend-org/my-game-projects-site',
           label: 'GitHub',
           position: 'right',
         },
@@ -33,67 +49,38 @@ module.exports = {
       style: 'dark',
       links: [
         {
-          title: 'Docs',
+          title: 'Content',
           items: [
-            {
-              label: 'Style Guide',
-              to: 'docs/',
-            },
-            {
-              label: 'Second Doc',
-              to: 'docs/doc2/',
-            },
-          ],
-        },
-        {
-          title: 'Community',
-          items: [
-            {
-              label: 'Stack Overflow',
-              href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-            },
-            {
-              label: 'Discord',
-              href: 'https://discordapp.com/invite/docusaurus',
-            },
-            {
-              label: 'Twitter',
-              href: 'https://twitter.com/docusaurus',
-            },
+            { label: 'Docs', to: '/docs' },
+            { label: 'Blog', to: '/blog' },
+            { label: 'Edit Content (CMS)', to: '/admin' },
           ],
         },
         {
           title: 'More',
           items: [
             {
-              label: 'Blog',
-              to: 'blog',
-            },
-            {
               label: 'GitHub',
-              href: 'https://github.com/facebook/docusaurus',
+              href: 'https://github.com/MindsMend-org/my-game-projects-site',
             },
           ],
         },
       ],
-      copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+      copyright: `Copyright © ${new Date().getFullYear()} Folding Circles. Built with Docusaurus.`,
     },
   },
+
   presets: [
     [
       '@docusaurus/preset-classic',
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/',
+          editUrl: 'https://github.com/MindsMend-org/my-game-projects-site/edit/master/',
         },
         blog: {
           showReadingTime: true,
-          // Please change this to your repo.
-          editUrl:
-            'https://github.com/facebook/docusaurus/edit/master/website/blog/',
+          editUrl: 'https://github.com/MindsMend-org/my-game-projects-site/edit/master/blog/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
