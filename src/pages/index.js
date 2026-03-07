@@ -20,7 +20,7 @@ function Home() {
           <div className={styles.buttons}>
             <Link
               className="button button--outline button--secondary button--lg"
-              to="/admin"
+              to="/admin/"
             >
               Edit Content (CMS)
             </Link>

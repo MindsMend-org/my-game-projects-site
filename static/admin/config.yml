@@ -1,3 +1,4 @@
+local_backend: true
 backend:
   name: github
   repo: MindsMend-org/my-game-projects-site
@@ -5,7 +6,7 @@ backend:
   squash_merges: true                        # Cleaner commit history
 
 media_folder: "static/img/uploads"           # Images go here
-public_folder: "/img/uploads"                # How paths appear in CMS
+public_folder: "/my-game-projects-site/img/uploads"                # How paths appear in CMS
 
 collections:
   - name: "projects"
